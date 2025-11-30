@@ -1,4 +1,8 @@
+
+using Application.Features.Activities.Mappings;
+using Application.Features.Activities.Queries;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Persistence.Contexts;
 using Persistence.Seed;
 
@@ -9,6 +13,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<MyContext>(opt=> opt.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddCors();
+builder.Services.AddMediatR(x=>x.RegisterServicesFromAssemblyContaining<GetActivities.Handler>());
+builder.Services.AddAutoMapper(typeof(ActivityProfiler).Assembly);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
