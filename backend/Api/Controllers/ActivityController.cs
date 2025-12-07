@@ -37,13 +37,13 @@ namespace Api.Controllers
         var id= await Mediator.Send(new CreateActivityCommand{Activity=activity});
             return Ok(id);
         }
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> EditActivity(Activity activity)
         {
 
           await Mediator.Send(new EditActivityCommand{Activity=activity});
           
-            return Ok(context.Acitivities.FindAsync(activity.Id));
+            return Ok( await context.Acitivities.FindAsync(activity.Id));
         }
     }
 }
